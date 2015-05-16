@@ -22,6 +22,7 @@ set cursorline
 set virtualedit=all
 set noswapfile
 set laststatus=2
+set foldmethod=indent
 
 "gvim settings
 if has("gui_running")
@@ -35,6 +36,8 @@ if has("gui_running")
     set guioptions-=b " disable scrollbar (bottom)
     set guioptions-=h " disable scrollbar (top)
     set guioptions+=c " enable console choices
+    map <silent> <S-Insert> "+p
+    imap <silent> <S-Insert> <Esc>"+pa
 endif
 
 "YouCompleteMe settings
@@ -58,6 +61,15 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 let NERDChristmasTree = 1
 command NTT NERDTreeToggle
 command Ntt NERDTreeToggle
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 nmap P :put<CR>
 
