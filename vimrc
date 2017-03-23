@@ -1,6 +1,7 @@
 :colors zenburn
 
 execute pathogen#infect()
+call pathogen#helptags()
 
 set autoread            "altera o arquivo no vim caso seja alterado por uma fonte externa
 set autoindent          "identação automática
@@ -23,6 +24,15 @@ set virtualedit=all
 set noswapfile
 set laststatus=2
 set foldmethod=indent
+set ruler
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+set statusline+=%f
+set statusline+=%=        " Switch to the right side
+set statusline+=%l:
+set statusline+=%c
 
 "gvim settings
 if has("gui_running")
@@ -40,11 +50,6 @@ if has("gui_running")
     imap <silent> <S-Insert> <Esc>"+pa
 endif
 
-"YouCompleteMe settings
-let g:ycm_key_list_select_completion = ['<TAB>', '<C-n>']
-let g:ycm_key_list_previous_completion = ['<A-TAB>', '<C-p>']
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Removing spaces
 if v:version >= 700
@@ -70,9 +75,38 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_loc_list_height = 3
 
-nmap P :put<CR>
+"CtrlP
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.swp,*.swo,*env/*,*.pyc,*.pyo
+let g:ctrlp_custom_ignore = {
+ \ 'dir':  '\.git$\|\.sass-cache$|\.hg$\|\.svn$\|\.yardoc\|public$|log\|tmp$',
+ \ 'file': '\.so$\|\env$|\.DS_Store$'
+ \}
+
+"JSHint
+set runtimepath+=~/.vim/bundle/jshint2.vim/
+
+" Jedi
+"let g:jedi#auto_vim_configuration = 0
+"let g:jedi#show_call_signatures = "1"
+"let g:jedi#goto_command = "<leader>d"
+"let g:jedi#goto_assignments_command = "<leader>g"
+"let g:jedi#goto_definitions_command = ""
+"let g:jedi#documentation_command = "K"
+"let g:jedi#usages_command = "<leader>n"
+"let g:jedi#completions_command = "<C-Space>"
+"let g:jedi#rename_command = "<leader>r"
+
+
+"YouCompleteMe settings
+let g:ycm_key_list_select_completion = ['<TAB>', '<C-n>']
+let g:ycm_key_list_previous_completion = ['<A-TAB>', '<C-p>']
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 
 " Inicializacao
+nmap P :put<CR>
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
